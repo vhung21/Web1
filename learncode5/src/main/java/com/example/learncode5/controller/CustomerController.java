@@ -2,6 +2,7 @@ package com.example.learncode5.controller;
 
 import com.example.learncode5.DTO.CustomerDTO;
 import com.example.learncode5.payload.Response.ResponseObject;
+import com.example.learncode5.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,7 +30,7 @@ public class CustomerController {
     // Thêm khách hàng
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<ResponseObject> addCustomer(@RequestBody com.example.learncode5.controller.CustomerDTO customerDTO) {
+    public ResponseEntity<ResponseObject> addCustomer(@RequestBody CustomerDTO customerDTO) {
         return customerService.addCustomer(customerDTO);
     }
 
@@ -45,7 +46,7 @@ public class CustomerController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ResponseObject> updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
         customerDTO.setId(id); // Gán ID cho DTO
-        return customerService.updateCustomer(customerDTO);
+        return customerService.updateCustomer(id, customerDTO);
     }
 
     // Xóa khách hàng
