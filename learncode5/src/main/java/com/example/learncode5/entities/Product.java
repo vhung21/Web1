@@ -1,4 +1,5 @@
 package com.example.learncode5.entities;
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,22 +14,27 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "productName",length = 300)
+
+    @Column(name = "product_name", nullable = false, length = 300)
     private String productName;
-    @Column(name = "productCode",length = 300)
+
+    @Column(name = "product_code", nullable = false, length = 100)
     private String productCode;
+
     @Column(name = "manufacturer", length = 300)
     private String manufacturer;
-    @Column(name = "quantity", length = 300)
+
+    @Column(name = "quantity", nullable = false)
     private int quantity;
-    @Column(name = "price", length = 300)
+
+    @Column(name = "price", nullable = false)
     private double price;
+
     @Column(name = "added_by")
     private String addedBy;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     public Product() {
@@ -48,5 +54,3 @@ public class Product {
                 '}';
     }
 }
-
-

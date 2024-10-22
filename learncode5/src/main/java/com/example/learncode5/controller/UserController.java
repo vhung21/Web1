@@ -29,7 +29,7 @@ public class UserController {
         return userService.getUserList();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") 
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ResponseObject> deleteUser(@PathVariable long id)
     {
