@@ -43,6 +43,11 @@ public class OrderService {
 
     public ResponseEntity<ResponseObject> addOrder(OrderDTO orderDTO) {
         try {
+            if (orderRepository.existsByOrderCode(orderDTO.getOrderCode())) {
+                return ResponseEntity.badRequest().body(
+                        new ResponseObject("failed", "Customer with the given email already exists", null)
+                );
+            }
             Order order = new Order();
             order.setOrderCode(orderDTO.getOrderCode());
             order.setCustomerName(orderDTO.getCustomerName());

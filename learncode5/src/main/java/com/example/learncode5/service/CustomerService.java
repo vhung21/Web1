@@ -72,7 +72,11 @@ public class CustomerService {
             if (existingCustomer.isEmpty()) {
                 return ResponseEntity.badRequest().body(new ResponseObject("failed", "Customer id not exist", id));
             }
-
+            if (customerRepository.existsByEmail(customerDTO.getEmail())) {
+                return ResponseEntity.badRequest().body(
+                        new ResponseObject("failed", "Customer with the given email already exists", null)
+                );
+            }
             Customer customerToUpdate = existingCustomer.get();
             customerToUpdate.setName(customerDTO.getName());
             customerToUpdate.setEmail(customerDTO.getEmail());
@@ -89,6 +93,11 @@ public class CustomerService {
 
     public ResponseEntity<ResponseObject> addCustomer(CustomerDTO customerDTO) {
         try {
+            if (customerRepository.existsByEmail(customerDTO.getEmail())) {
+            return ResponseEntity.badRequest().body(
+                    new ResponseObject("failed", "Customer with the given email already exists", null)
+            );
+            }
             Customer customer = new Customer();
             customer.setName(customerDTO.getName());
             customer.setEmail(customerDTO.getEmail());
